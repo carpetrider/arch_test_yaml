@@ -704,7 +704,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Auction'  
         $ref: '#/components/responses/Error'
-  /auctions/{auction_id}/bids
+  /auctions/{auction_id}/bids:
     get:
       summary: Получение списка всех ставок аукциона
       description: Возвращает список ставок для аукциона
@@ -719,6 +719,53 @@ paths:
               schema:
                 $ref: '#/components/schemas/Bids'  
         $ref: '#/components/responses/Error'
+  /subscriptionPlan:
+    get:
+      summary: Просмотр план подписки по идентификатору
+      description: Возвращает план подписки с указанным идентификатором, включая название, описание и цену
+      parameters:
+        - $ref: '#/components/parameters/LimitQueryParam'
+        - $ref: '#/components/parameters/OffsetQueryParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubscriptionPlan'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      summary: Обновление указанного плана подписок
+      description: Обновляет указанный план подписки новыми данными, предоставленными в теле запроса.
+      parameters:
+        - $ref: '#/components/parameters/SubscriptionPlanIdParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SubscriptionPlanRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionPlan'
+        default:
+          $ref: '#/components/responses/Error'
+    delete:
+      summary: Удаление указанного плана подписки
+      description: Удаляет указанный план подписки.
+      parameters:
+        - $ref: '#/components/parameters/SubscriptionPlanIdParam'
+      responses:
+        '204':
+          description: No Content
+        default:
+          $ref: '#/components/responses/Error'
+    
         
 
       
