@@ -445,16 +445,36 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
 paths:
-    /auth/registration:
-    post:
-      summary: Регистрация нового пользователя
-      requestBody:
-        required: true
+  /auth/registration:
+  post:
+    summary: Регистрация нового пользователя
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              fullname:
+                type: string
+              email:
+                type: string
+              role:
+                type: string
+              icon:
+                type: string
+    responses:
+      '201':
+        description: Created
         content:
           application/json:
             schema:
               type: object
               properties:
+                id:
+                  type: string
                 username:
                   type: string
                 fullname:
@@ -465,36 +485,16 @@ paths:
                   type: string
                 icon:
                   type: string
-      responses:
-        '201':
-          description: Created
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                  username:
-                    type: string
-                  fullname:
-                    type: string
-                  email:
-                    type: string
-                  role:
-                    type: string
-                  icon:
-                    type: string
-                  Message:
-                    type: string                    
-              example:
-                id: "123"
-                username: "user123"
-                fullname: "Иванов Иван Иванович"
-                email: "user123@example.ru"
-                role: "buyer"
-                icon: "onlineauction.ru/content/images/ico112233.png"
-                Message: "Пользователь создан"
+                Message:
+                  type: string                    
+            example:
+              id: "123"
+              username: "user123"
+              fullname: "Иванов Иван Иванович"
+              email: "user123@example.ru"
+              role: "buyer"
+              icon: "onlineauction.ru/content/images/ico112233.png"
+              Message: "Пользователь создан"
   /auctions:
     get:
       summary: Извлечение списка аукционов
@@ -722,4 +722,3 @@ paths:
         
 
       
-
